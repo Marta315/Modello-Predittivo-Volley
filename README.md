@@ -39,7 +39,7 @@ Execute the scripts in this order:
 If you want to recreate the model using the 220 training games in the `A2f_202526` folder, run the training scripts in this order:
 1. `python3 src/1_final_dataset_onehot.py`
 2. `python3 src/2_XGBoost.py`
-*(This will generate a new version of the `volleyball_xg_model.pkl` file).*   
+*(This will generate a new version of the `volleyball_xg_model.pkl` and `training_columns.pkl` files).*   
 
 ## 4. Author
 Marta Graziano
