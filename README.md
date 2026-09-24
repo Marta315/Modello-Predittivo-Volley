@@ -15,6 +15,7 @@ You will need Python installed. Several of the imported modules (like `os`, `glo
 You can install all required dependencies by running this command in your terminal:
 ```bash
 pip install numpy pandas datavolley joblib xgboost scikit-learn matplotlib seaborn adjustText
+```
 
 ## 3. How to Run the Code
 There are two ways to use this repository:
