@@ -1,6 +1,6 @@
 # Predictive Modeling in Volleyball
 
-This repository contains the code, models, and sample outputs for my Master's thesis on predictive analytics in volleyball using XGBoost. All necessary data is included directly in the repository.
+This repository contains the code and sample outputs for my Master's thesis on predictive analytics in volleyball using XGBoost. The written thesis document, which provides detailed explanations of the model and all generated graphs, is included here alongside all necessary data.
 
 ## 1. Repository Structure
 - **Data/**: Contains the datasets used for the project. 
