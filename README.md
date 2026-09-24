@@ -28,8 +28,7 @@ If you only want to analyze a game, you do not need to retrain the model. You ca
 *   **Testing a completely new game:** change the `folder` variable in all three scripts (this folder name acts as the `.dvw` file name). Additionally, open `src/3_one_hot_one.py` and change the `file_path` variable to point to the location of your new `.dvw` file.
 *   **Select a team:** in `src/5_team_analysis.py`, you can modify the `focus_team` variable to specify which team you want to analyze.
 
-**2. Run the Analysis**
-
+**2. Run the Analysis**  
 Execute the scripts in this order:
 - `python3 src/3_one_hot_one.py`
 - `python3 src/4_xg_new_match.py`
