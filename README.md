@@ -30,10 +30,14 @@ If you only want to analyze a game, you do not need to retrain the model. You ca
 *   **Select a team:** in `src/5_team_analysis.py`, you can modify the `focus_team` variable to specify which team you want to analyze.
 
 **2. Run the Analysis**  
-Execute the scripts in this order:
-- `python3 src/3_one_hot_one.py`
-- `python3 src/4_xg_new_match.py`
-- `python3 src/5_team_analysis.py`
+First, ensure your terminal is open inside the `src` folder by running:
+```bash
+cd src
+```
+Then, execute the scripts in this order:
+- `python3 3_one_hot_one.py`
+- `python3 4_xg_new_match.py`
+- `python3 5_team_analysis.py`
 
 ### Option B: Retrain the Model from Scratch
 If you want to recreate the model using the 220 training games in the `A2f_202526` folder, run the training scripts in this order:
