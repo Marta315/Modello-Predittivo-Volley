@@ -14,7 +14,7 @@ hidden_cols = ['match_id', 'skill', 'evaluation_code', 'prev_touch', 'prev_touch
 
 # identifichiamo le colonne che verranno usaete nel training
 training_features = [col for col in df.columns if col not in hidden_cols + ['target']]
-joblib.dump(training_features, 'training_columns.pkl')
+joblib.dump(training_features, 'src/training_columns.pkl')
 
 # separiamo input e target 
 y = df['target']
@@ -55,7 +55,7 @@ importance_df = pd.DataFrame({
 	'Importance': importances
 })
 importance_df = importance_df.sort_values(by='Importance', ascending=False)
-importance_df.to_csv("xg_feature_importances.csv", index=False)
+importance_df.to_csv("src/xg_feature_importances.csv", index=False)
 
 # Probabilità
 wpa_df = df.iloc[train_size:].copy()
@@ -67,6 +67,6 @@ wpa_df['Probability_Shift'] = wpa_df['Probability_Shift'].fillna(wpa_df['Serving
 output_columns = ['match_id', 'set_number', 'rally_number', 'home_team', 'serving_team', 'point_won_by', 'home_team_score', 'visiting_team_score', 'team', 'player_number', 'skill', 'evaluation_code', 'target', 'Serving_Team_Win_Prob', 'Probability_Shift']
 
 clean_wpa_df = wpa_df[output_columns]
-clean_wpa_df.to_csv("xg_win_prob.csv", index=False)
+clean_wpa_df.to_csv("src/xg_win_prob.csv", index=False)
 
-joblib.dump(model, 'volleyball_xg_model.pkl')
+joblib.dump(model, 'src/volleyball_xg_model.pkl')

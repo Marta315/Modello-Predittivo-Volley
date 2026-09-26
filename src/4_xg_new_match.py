@@ -9,12 +9,12 @@ file_path = os.path.join(folder, "encoded_data.csv")
 new_game_encoded = pd.read_csv(file_path)
 
 # carichiamo la lista delle colonne usate nel training
-expected_columns = joblib.load('training_columns.pkl')
+expected_columns = joblib.load('src/training_columns.pkl')
 
 # facciamo in modo che il nuovo DataFrame abbia le stesse colonne del training (quelle diverse vengono eliminate)
 X = new_game_encoded.reindex(columns=expected_columns, fill_value=0)
 
-model = joblib.load('volleyball_xg_model.pkl')
+model = joblib.load('src/volleyball_xg_model.pkl')
 
 # Probabilità
 y_pred_probs = model.predict_proba(X)
