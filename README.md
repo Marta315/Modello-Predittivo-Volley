@@ -31,14 +31,14 @@ If you only want to analyze a game, you do not need to retrain the model. You ca
 
 **2. Run the Analysis**  
 Execute the scripts in this order:
-- `python3 3_one_hot_one.py`
-- `python3 4_xg_new_match.py`
-- `python3 5_team_analysis.py`
+- `python3 src/3_one_hot_one.py`
+- `python3 src/4_xg_new_match.py`
+- `python3 src/5_team_analysis.py`
 
 ### Option B: Retrain the Model from Scratch
 If you want to recreate the model using the 220 training games in the `A2f_202526` folder, run the training scripts in this order:
-1. `python3 1_final_dataset_onehot.py`
-2. `python3 2_XGBoost.py`
+1. `python3 src/1_final_dataset_onehot.py`
+2. `python3 src/2_XGBoost.py`
 *(This will generate a new version of the `volleyball_xg_model.pkl` and `training_columns.pkl` files).*   
 
 ## 4. Author
