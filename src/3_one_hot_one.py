@@ -11,7 +11,7 @@ import os
 folder = "&RS24B_RIT03_TRE-FUT"
 os.makedirs(folder, exist_ok=True)
 
-file_path = f"../Dati/experiments/{folder}.dvw"
+file_path = f"Dati/experiments/{folder}.dvw"
 match = read_dv.DataVolley(file_path)
 match_df = match.get_plays()
 

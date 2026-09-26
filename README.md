@@ -15,7 +15,7 @@ This project was developed and tested using **Python 3.10.12**. Several of the i
 You can install all required dependencies by running this command in your terminal:
 
 ```bash
-pip install numpy pandas pydatavolley joblib xgboost scikit-learn matplotlib seaborn adjustText
+pip3 install numpy pandas pydatavolley joblib xgboost scikit-learn matplotlib seaborn adjustText
 ```
 
 ## 3. How to Run the Code
