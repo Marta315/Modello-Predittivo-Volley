@@ -12,7 +12,7 @@ import glob
 all_matches_list = []
 
 # troviamo tutti i file .dvw presenti nella cartella 
-file_paths = glob.glob("../Dati/A2f_202526/*.dvw")
+file_paths = glob.glob("Dati/A2f_202526/*.dvw")
 
 print(f"Found {len(file_paths)} matches. Beginning extraction...")
 
