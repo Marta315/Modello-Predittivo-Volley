@@ -141,8 +141,18 @@ full_report = pd.merge(report_card, skill_wpa, on=['team', 'player_number', 'pla
 # riordiniamo le colonne, al momento ho tutte le skill_wpa e poi tutte le skill_touches, cosa voglio è per fondamentale le informazioni riguardo la wpa e il numero di tocchi vicine
 final_column_order = ['team', 'player_number', 'player_name', 'Total_WPA', 'Total_Touches', 'Good_Touches', 'Bad_Touches', 'Good_Touch_Pct', 'Bad_Touch_Pct']
 for skill in skills:
-	final_column_order.append(f"{skill}_WPA")
-	final_column_order.append(f"{skill}_Touches")
+	wpa_col = f"{skill}_WPA"
+	touches_col = f"{skill}_Touches"
+	
+	# se il fondamentale non è presente nel set di dati, creiamo la colonna e la riempiamo di 0
+	if wpa_col not in full_report.columns:
+		full_report[wpa_col] = 0.0
+	if touches_col not in full_report.columns:
+		full_report[touches_col] = 0
+
+	final_column_order.append(wpa_col)
+	final_column_order.append(touches_col)
+
 full_report = full_report[final_column_order]
 
 # ordiamo la tabella prima in ordine alfabetico per squadra e poi in ordine decrescente per Total_WPA (quindi divisi per squadra e dal migliore al peggiore)
@@ -198,11 +208,11 @@ unique_sets = sorted(df['set_number'].dropna().unique())
 num_sets = len(unique_sets)
 
 # basiamo l'altezza del grafico in base al numero di set
-fig, axes = plt.subplots(nrows=num_sets, ncols=1, figsize=(30, 5 * num_sets), sharey=True)
-
+#fig, axes = plt.subplots(nrows=num_sets, ncols=1, figsize=(30, 5 * num_sets), sharey=True)
+fig, axes = plt.subplots(nrows=num_sets, ncols=1, figsize=(30, 5 * num_sets), sharey=True, squeeze=False)
 # disegnamo il grafico per ogni set
 for i, s_num in enumerate(unique_sets):
-	ax = axes[i]
+	ax = axes[i, 0]
 
 	# filtriamo i dati per set
 	set_df = df[df['set_number'] == s_num].copy()
@@ -535,7 +545,8 @@ for k in range(n_players):
 				center=0,            
 				linewidths=1, 
 				linecolor='black',
-				ax=ax2
+				ax=ax2,
+				annot_kws={"size": 12, "weight": "bold"}
 			)
 	    
 		ax2.set_title(f"Set {display_set}", fontsize=16, fontweight='bold')
@@ -567,8 +578,8 @@ for current_skill in skills:
 	for s_num in unique_sets:
 		set_df = df[(df['set_number'] == s_num) & (df['team'] == focus_team) & (df['skill'] == current_skill)].copy()
 
-		if set_df.empty or len(set_df) < 3:
-			continue
+		if set_df.empty:
+			continue			
 
 		# vettorializzazione del calcolo metriche tramite pandas groupby
 		is_critical = set_df['critical_moments'].astype(bool)
@@ -587,11 +598,6 @@ for current_skill in skills:
 			Norm_Touches=('Is_Norm_Touch', 'sum')
 		).reset_index()
 		
-		# eliminiamo anomalie di chi ha giocato 1 solo pallone
-		metrics_df = metrics_df[metrics_df['Touches'] >= 2].copy()
-		if metrics_df.empty or len(metrics_df) < 2:
-			continue
-
 		metrics_df['WPA_per_Touch'] = metrics_df['Total_WPA'] / metrics_df['Touches']
 		metrics_df['Volatility'] = metrics_df['Volatility'].fillna(0.0)
 		metrics_df['HL_WPA_Touch'] = np.where(metrics_df['HL_Touches'] > 0, metrics_df['HL_WPA'] / metrics_df['HL_Touches'], 0.0)
