@@ -11,7 +11,7 @@ import matplotlib.ticker as mtick
 from adjustText import adjust_text
 
 focus_team = "ITAS TRENTINO"
-folder = "&RS24B_RIT03_TRE-FUT"
+folder = "&CI24_FIN_TRE-MAG_25-02-09"
 file_path = os.path.join(folder, "xg_win_prob.csv")
 df = pd.read_csv(file_path)
 

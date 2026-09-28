@@ -8,7 +8,7 @@ import pandas as pd
 from datavolley import read_dv
 import os
 
-folder = "&RS24B_RIT03_TRE-FUT"
+folder = "&CI24_FIN_TRE-MAG_25-02-09"
 os.makedirs(folder, exist_ok=True)
 
 file_path = f"Dati/experiments/{folder}.dvw"
@@ -28,7 +28,7 @@ encoded_df.to_csv(csv_path, index=False)
 # uniamo le colonne skill e evaluation code in un'unica colonna + one-hot
 encoded_df['skill_eval'] = encoded_df['skill'].astype(str) + '_' + encoded_df['evaluation_code'].astype(str)
 encoded_df = pd.get_dummies(encoded_df, columns=['skill_eval'], dtype=int)
-encoded_df = encoded_df.drop(columns=['skill_eval_Reception_!'])
+encoded_df = encoded_df.drop(columns=['skill_eval_Reception_!'], errors='ignore')
 
 # aggiungiamo le informazioni riguardo il tocco precedente + one-hot
 encoded_df['prev_touch'] = encoded_df['skill'].shift(1)
@@ -39,7 +39,7 @@ encoded_df.loc[is_serve, 'prev_touch_eval'] = 0
 encoded_df['prev_skill_eval'] = encoded_df['prev_touch'].astype(str) + '_' + encoded_df['prev_touch_eval'].astype(str)
 encoded_df.loc[is_serve, 'prev_skill_eval'] = 0
 encoded_df = pd.get_dummies(encoded_df, columns=['prev_skill_eval'], dtype=int)
-encoded_df = encoded_df.drop(columns=['prev_skill_eval_0'])
+encoded_df = encoded_df.drop(columns=['prev_skill_eval_0'], errors='ignore')
 
 # aggiungiamo le informazioni riguardo il numero di tocco + one-hot
 match_changed = encoded_df['match_id'] != encoded_df['match_id'].shift(1)
@@ -68,7 +68,7 @@ encoded_df['is_serve'] = (encoded_df['skill'] == 'Serve').astype(int)
 encoded_df['is_block'] = (encoded_df['skill'] == 'Block').astype(int)
 
 encoded_df = pd.get_dummies(encoded_df, columns=['touch_number'], dtype=int)
-encoded_df = encoded_df.drop(columns=['touch_number_0.0'])
+encoded_df = encoded_df.drop(columns=['touch_number_0.0'], errors='ignore')
 
 print(f"Total touches: {len(encoded_df)}")
 
@@ -137,7 +137,7 @@ encoded_df['receiving_setter_pos'] = np.where(
 	encoded_df['home_setter_position']
 )
 encoded_df = pd.get_dummies(encoded_df, columns=['serving_setter_pos', 'receiving_setter_pos'], dtype=int)
-encoded_df = encoded_df.drop(columns=['serving_setter_pos_1', 'receiving_setter_pos_1'])
+encoded_df = encoded_df.drop(columns=['serving_setter_pos_1', 'receiving_setter_pos_1'], errors='ignore')
 
 # set_code and set_type + one-hot
 encoded_df['original_set_code'] = encoded_df['set_code']
@@ -148,7 +148,7 @@ encoded_df.loc[is_set & encoded_df['set_type'].isna(), 'set_type'] = 'Unknown_Ty
 encoded_df['set_code'] = encoded_df['set_code'].fillna('not_a_set')
 encoded_df['set_type'] = encoded_df['set_type'].fillna('not_a_set')
 encoded_df = pd.get_dummies(encoded_df, columns=['set_code', 'set_type'], dtype=int)
-encoded_df = encoded_df.drop(columns=['set_code_not_a_set', 'set_type_not_a_set'])
+encoded_df = encoded_df.drop(columns=['set_code_not_a_set', 'set_type_not_a_set'], errors='ignore')
 
 # attack code + one_hot
 encoded_df['original_attack_code'] = encoded_df['attack_code']
@@ -156,13 +156,13 @@ is_attack = encoded_df['skill'] == 'Attack'
 encoded_df.loc[is_attack & encoded_df['attack_code'].isna(), 'attack_code'] = 'Unknown_Attack'
 encoded_df['attack_code'] = encoded_df['attack_code'].fillna('not_an_attack')
 encoded_df = pd.get_dummies(encoded_df, columns=['attack_code'], dtype=int)
-encoded_df = encoded_df.drop(columns=['attack_code_not_an_attack'])
+encoded_df = encoded_df.drop(columns=['attack_code_not_an_attack'], errors='ignore')
 
 # start and end zone + one-hot
 encoded_df['start_zone'] = encoded_df['start_zone'].fillna('no_zone')
 encoded_df['end_zone'] = encoded_df['end_zone'].fillna('no_zone')
 encoded_df = pd.get_dummies(encoded_df, columns=['start_zone', 'end_zone'], dtype=int)
-encoded_df = encoded_df.drop(columns=['start_zone_no_zone', 'end_zone_no_zone'])
+encoded_df = encoded_df.drop(columns=['start_zone_no_zone', 'end_zone_no_zone'], errors='ignore')
 
 # normalizziamo le info relative al punteggio e il set number
 divisors = np.where(

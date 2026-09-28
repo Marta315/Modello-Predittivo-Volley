@@ -4,7 +4,7 @@ import pandas as pd
 import joblib
 import os
 
-folder = "&RS24B_RIT03_TRE-FUT"
+folder = "&CI24_FIN_TRE-MAG_25-02-09"
 file_path = os.path.join(folder, "encoded_data.csv")
 new_game_encoded = pd.read_csv(file_path)
 
