@@ -570,6 +570,7 @@ for k in range(n_players):
 # =========================================================================================
 # GRAPH 4 & 5: Dashboard della squadra (per set) & Efficienza vs WPA Impact (per Match)
 # =========================================================================================
+unique_sets = sorted(df['set_number'].dropna().unique())
 
 for current_skill in skills:
 	# --------------------------
